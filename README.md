@@ -2,7 +2,7 @@
 
 - Run Command:
 
-    npm i firebase
+     npm i firebase
 
 - Setup Firebase project in https://console.firebase.google.com/
 
@@ -17,12 +17,12 @@
 
             // Your web app's Firebase configuration
             const firebaseConfig = {
-            apiKey: "AIzaSyA7r-UYnzCPXs3vXLIcJSl6p1IZpzHesiA",
-            authDomain: "sample-42f42.firebaseapp.com",
-            projectId: "sample-42f42",
-            storageBucket: "sample-42f42.appspot.com",
-            messagingSenderId: "17525318164",
-            appId: "1:17525318164:web:f97bfae62a25f57e7efd01"
+            apiKey: "",
+            authDomain: "",
+            projectId: "",
+            storageBucket: "",
+            messagingSenderId: "",
+            appId: ""
             };
 
             // Initialize Firebase
