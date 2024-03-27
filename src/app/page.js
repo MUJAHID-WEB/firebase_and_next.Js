@@ -1,12 +1,12 @@
 import FetchDataFromFirestore from "@/components/FetchDataFromFirestore";
-import AddDataToFirestore from "@/components/addDataToFirestore";
+import Navbar from "@/components/Navbar";
 
 export default function Home() {
 
   return (
     <main className="flex flex-col items-center p-5 gap-3">
-      <AddDataToFirestore />
-
+     
+      <Navbar />
       <FetchDataFromFirestore />
     </main>
   );

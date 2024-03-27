@@ -29,6 +29,70 @@
             const app = initializeApp(firebaseConfig);
 
 
+
+
+- Setup Authentication in firebase
+    - Create sign-in method in firebase Authentication
+    - import auth in 'firebaseConfig.js'
+
+           
+            import {getAuth} from 'firebase/auth'
+
+            export const auth = getAuth(app)
+
+
+
+- Set the page for Signup through Sign up Form
+
+
+            import { createUserWithEmailAndPassword } from "firebase/auth"
+            import {auth} from '../firebaseConfig'
+            import Link from "next/link"
+            import { useState } from "react"
+
+
+            const [email, setEmail] = useState('')
+            const [password, setPassword] = useState('')
+
+            const signup = async () =>{
+                if(email === '' || password === ''){
+                    return alert('Please fill all fields')
+                }
+                try{
+                    const user = await createUserWithEmailAndPassword(auth, email, password)
+
+                    alert('Signup Successfully')
+
+                    setEmail('')
+                    setPassword('')
+
+                }catch(error){
+                    console.log(error)
+                }
+            }
+
+
+            <input type="email"
+                name='email'
+                value={email}
+                onChange={(e)=>setEmail(e.target.value)}
+            />
+
+            <input
+                type="password"
+                value={password}
+                onChange={(e)=>setPassword(e.target.value)}
+            />
+
+            <button
+                onClick={signup}>
+                Signup
+            </button>
+
+
+
+
+
 - Add data to Firestore Database 
     - Create database in test mode
     - import db in 'firebaseConfig.js'
@@ -139,3 +203,63 @@
             const db = getFirestore(app)
 
             export {db}
+
+
+
+- Set the page where data get from database through doc
+
+            'use client'
+
+            import React, { useEffect, useState } from 'react'
+            import {db} from '../app/firebaseConfig'
+            import {collection, getDocs} from 'firebase/firestore'
+
+
+            async function fetchDataFromCollection(){
+                const querySnapshot = await getDocs(collection(db, 'messages'))
+
+                const data = []
+                querySnapshot.forEach(doc=>{
+                    data.push({id: doc.id, ...doc.data()})
+                })
+                return data
+            }
+
+
+            function FetchDataFromFirestore() {
+                const [messagesData, setMessagesData]=useState([])
+
+                useEffect(()=>{
+                    async function fetchMessages(){
+                        const data = await fetchDataFromCollection()
+
+                        setMessagesData(data)
+                    }
+                    fetchMessages()
+                },[])
+
+            return (
+                <div>
+                <h1 className='font-bold text-3xl text-center mb-3'>Fetch Data From Firestore</h1>
+
+                <div className=' flex flex-wrap gap-5'>
+                    {
+                        messagesData.map((message)=>(
+                            <div key={message.id} className='bg-blue-400 p-3'>
+
+                            <h3>Name: {message.name}</h3>
+                            <h5>email: {message.email}</h5>
+                            <p>Message: {message.message}</p>
+
+                            </div>
+                        ))
+                    }
+                </div>
+                </div>
+            )
+            }
+
+            export default FetchDataFromFirestore
+
+
+
