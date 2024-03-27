@@ -29,7 +29,7 @@
             const app = initializeApp(firebaseConfig);
 
 
-- Firestore Database 
+- Add data to Firestore Database 
     - Create database in test mode
     - import db in 'firebaseConfig.js'
 
@@ -41,7 +41,7 @@
 
 
 
-- Set the page where input field work
+- Set the page from where data sent to database through Form
 
             'use client'
 
@@ -128,3 +128,14 @@
             );
             }
             
+
+
+- Fetch data from Firestore Database 
+    - Create database in test mode
+    - import db in 'firebaseConfig.js'
+
+            import { getFirestore } from 'firebase/firestore'
+
+            const db = getFirestore(app)
+
+            export {db}
